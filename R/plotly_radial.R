@@ -20,8 +20,6 @@ plotly_radial <- function(r_object, TEST) {
     TEST <- FALSE
   }
 
-  requireNamespace("plotly", quietly = TRUE)
-
   circle.radial <- function(center = c(0, 0), radius, num.points, START, END) {
     R = radius
     tt <- seq(START, END, length.out = num.points)
