@@ -253,9 +253,9 @@ ivw_radial <- function(r_input, alpha, weights, tol, summary) {
       # Update confidence interval for effect estimate
       Bhat1.CI <- new.IVW_CI
       # Update t-value for effect estimate
-      Bhat1.t <- summary(new.IVW.Model)$coefficients[1, 3]
+      Bhat1.t <- new.EstimatesIVW$coefficients[1, 3]
       # Update p-value for effect estimate
-      Bhat1.p <- summary(new.IVW.Model)$coefficients[1, 4]
+      Bhat1.p <- new.EstimatesIVW$coefficients[1, 4]
       # Update count number for total iterations
       count <- count + 1
     }
