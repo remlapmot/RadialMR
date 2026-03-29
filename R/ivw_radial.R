@@ -316,13 +316,17 @@ ivw_radial <- function(r_input, alpha, weights, tol, summary) {
   BootVar = function(sims = 1000) {
     B = NULL
     pp = NULL
+    bxg_all = r_input[, 2]
+    byg_all = r_input[, 3]
+    seX_all = r_input[, 4]
+    seY_all = r_input[, 5]
+    L = length(bxg_all)
     for (hh in 1:sims) {
-      L = length(r_input[, 2])
       choice = sample(seq(1, L), L, replace = TRUE)
-      bxg = r_input[, 2][choice]
-      seX = r_input[, 4][choice]
-      byg = r_input[, 3][choice]
-      seY = r_input[, 5][choice]
+      bxg = bxg_all[choice]
+      seX = seX_all[choice]
+      byg = byg_all[choice]
+      seY = seY_all[choice]
       Ratios = byg / bxg
 
       W1 = 1 / (seY^2 / bxg^2)
