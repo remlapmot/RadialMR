@@ -147,7 +147,7 @@ ivw_radial <- function(r_input, alpha, weights, tol, summary) {
   IVW.Model <- stats::lm(BetaWj ~ -1 + Wj)
 
   # Save summary of IVW model
-  EstimatesIVW <- summary(stats::lm(IVW.Model))
+  EstimatesIVW <- summary(IVW.Model)
 
   # Define effect estimate using IVW model
   IVW.Slope <- EstimatesIVW$coefficients[1]
@@ -188,7 +188,7 @@ ivw_radial <- function(r_input, alpha, weights, tol, summary) {
     IVW.Model <- stats::lm(BetaWj ~ -1 + Wj)
 
     # Save summary of IVW model
-    EstimatesIVW <- summary(stats::lm(BetaWj ~ -1 + Wj))
+    EstimatesIVW <- summary(IVW.Model)
 
     # Define effect estimate using IVW model
     IVW.Slope <- EstimatesIVW$coefficients[1]
@@ -232,7 +232,7 @@ ivw_radial <- function(r_input, alpha, weights, tol, summary) {
       Wj <- sqrt(W)
       BetaWj <- Ratios * Wj
       new.IVW.Model <- stats::lm(BetaWj ~ -1 + Wj)
-      new.EstimatesIVW <- summary(stats::lm(BetaWj ~ -1 + Wj))
+      new.EstimatesIVW <- summary(new.IVW.Model)
       new.IVW.Slope <- new.EstimatesIVW$coefficients[1]
       new.IVW.SE <- new.EstimatesIVW$coefficients[2]
       new.IVW_CI <- stats::confint(new.IVW.Model)
