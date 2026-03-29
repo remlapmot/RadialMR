@@ -463,27 +463,15 @@ ivw_radial <- function(r_input, alpha, weights, tol, summary) {
   RE_EXACT <- data.frame(RE_EXACT)
   names(RE_EXACT) <- c("Estimate", "Std.Error", "t value", "Pr(>|t|)")
 
-  # Define a placeholder vector of 0 values for chi square tests
-  Qj_Chi <- 0
-
   # Perform chi square tests for each Q contribution Qj
-  for (i in seq_along(Qj)) {
-    Qj_Chi[i] <- stats::pchisq(Qj[i], 1, lower.tail = FALSE)
-  }
+  Qj_Chi <- stats::pchisq(Qj, 1, lower.tail = FALSE)
 
   # Create data frame with SNP IDs and outlier information
   r_input$Qj <- Qj
   r_input$Qj_Chi <- Qj_Chi
 
-  # Define a placeholder vector of 0 values for outlier status variable
-  Out_Indicator <- rep(0, length(r_input[, 2]))
-
-  # Include value of 1 indicating positive outlier status for given sig.threshold
-  for (i in seq_along(r_input[, 2])) {
-    if (Qj_Chi[i] < alpha) {
-      Out_Indicator[i] <- 1
-    }
-  }
+  # Set outlier indicator (1 = outlier) for variants below significance threshold
+  Out_Indicator <- as.integer(Qj_Chi < alpha)
 
   # Include the outlier status variable in the data frame as a factor
   r_input$Outliers <- factor(Out_Indicator)
