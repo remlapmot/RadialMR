@@ -224,23 +224,19 @@ plot_radial <- function(r_object, radial_scale, show_outliers, scale_match) {
                     )
                 }
               }
-              for (i in seq_along(r_object$data[, 3])) {
-                Theta <- atan(r_object$data[, 3] / r_object$data[, 2])
-
-                b <- sin(Theta) * R.All
-                a <- cos(Theta) * R.All
-
-                B <- B +
-                  ggplot2::annotate(
-                    "segment",
-                    x = 0,
-                    xend = a[i],
-                    y = 0,
-                    yend = b[i],
-                    linetype = "dotted",
-                    colour = "grey75"
-                  )
-              }
+              Theta <- atan(r_object$data[, 3] / r_object$data[, 2])
+              b <- sin(Theta) * R.All
+              a <- cos(Theta) * R.All
+              B <- B +
+                ggplot2::annotate(
+                  "segment",
+                  x = 0,
+                  xend = a,
+                  y = 0,
+                  yend = b,
+                  linetype = "dotted",
+                  colour = "grey75"
+                )
 
               print("No significant Outliers")
             }
@@ -415,45 +411,30 @@ plot_radial <- function(r_object, radial_scale, show_outliers, scale_match) {
                 )
               )
 
-              for (i in seq_along(r_object$data[
-                r_object$data$Outliers == "Outlier",
-              ][, 3])) {
-                Theta <- atan(
-                  r_object$data[r_object$data$Outliers == "Outlier", ][, 3] /
-                    r_object$data[r_object$data$Outliers == "Outlier", ][, 2]
+              out_dat <- r_object$data[r_object$data$Outliers == "Outlier", ]
+              Theta <- atan(out_dat[, 3] / out_dat[, 2])
+              b <- sin(Theta) * R.All
+              a <- cos(Theta) * R.All
+              B <- B +
+                ggplot2::annotate(
+                  "segment",
+                  x = 0,
+                  xend = a,
+                  y = 0,
+                  yend = b,
+                  linetype = "dotted",
+                  colour = "grey75"
                 )
-                b <- sin(Theta) * R.All
-                a <- cos(Theta) * R.All
-                B <- B +
-                  ggplot2::annotate(
-                    "segment",
-                    x = 0,
-                    xend = a[i],
-                    y = 0,
-                    yend = b[i],
-                    linetype = "dotted",
-                    colour = "grey75"
-                  )
-                B <- B +
-                  ggplot2::annotate(
-                    "segment",
-                    x = r_object$data[r_object$data$Outliers == "Outlier", ][,
-                      2
-                    ][i],
-                    xend = r_object$data[
-                      r_object$data$Outliers == "Outlier",
-                    ][, 2][i],
-                    y = r_object$data[r_object$data$Outliers == "Outlier", ][,
-                      3
-                    ][i],
-                    yend = r_object$data[
-                      r_object$data$Outliers == "Outlier",
-                    ][, 2][i] *
-                      r_object$coef[1],
-                    linetype = "solid",
-                    colour = "#56B4E9"
-                  )
-              }
+              B <- B +
+                ggplot2::annotate(
+                  "segment",
+                  x = out_dat[, 2],
+                  xend = out_dat[, 2],
+                  y = out_dat[, 3],
+                  yend = out_dat[, 2] * r_object$coef[1],
+                  linetype = "solid",
+                  colour = "#56B4E9"
+                )
             }
           }
 
@@ -570,23 +551,19 @@ plot_radial <- function(r_object, radial_scale, show_outliers, scale_match) {
                     )
                 }
               }
-              for (i in seq_along(r_object$data[, 3])) {
-                Theta <- atan(r_object$data[, 3] / r_object$data[, 2])
-
-                b <- sin(Theta) * R.All
-                a <- cos(Theta) * R.All
-
-                B <- B +
-                  ggplot2::annotate(
-                    "segment",
-                    x = 0,
-                    xend = a[i],
-                    y = 0,
-                    yend = b[i],
-                    linetype = "dotted",
-                    colour = "grey75"
-                  )
-              }
+              Theta <- atan(r_object$data[, 3] / r_object$data[, 2])
+              b <- sin(Theta) * R.All
+              a <- cos(Theta) * R.All
+              B <- B +
+                ggplot2::annotate(
+                  "segment",
+                  x = 0,
+                  xend = a,
+                  y = 0,
+                  yend = b,
+                  linetype = "dotted",
+                  colour = "grey75"
+                )
 
               print("No significant Outliers")
             }
@@ -754,45 +731,30 @@ plot_radial <- function(r_object, radial_scale, show_outliers, scale_match) {
                 )
               )
 
-              for (i in seq_along(r_object$data[
-                r_object$data$Outliers == "Outlier",
-              ][, 3])) {
-                Theta <- atan(
-                  r_object$data[r_object$data$Outliers == "Outlier", ][, 3] /
-                    r_object$data[r_object$data$Outliers == "Outlier", ][, 2]
+              out_dat <- r_object$data[r_object$data$Outliers == "Outlier", ]
+              Theta <- atan(out_dat[, 3] / out_dat[, 2])
+              b <- sin(Theta) * R.All
+              a <- cos(Theta) * R.All
+              B <- B +
+                ggplot2::annotate(
+                  "segment",
+                  x = 0,
+                  xend = a,
+                  y = 0,
+                  yend = b,
+                  linetype = "dotted",
+                  colour = "grey75"
                 )
-                b <- sin(Theta) * R.All
-                a <- cos(Theta) * R.All
-                B <- B +
-                  ggplot2::annotate(
-                    "segment",
-                    x = 0,
-                    xend = a[i],
-                    y = 0,
-                    yend = b[i],
-                    linetype = "dotted",
-                    colour = "grey75"
-                  )
-                B <- B +
-                  ggplot2::annotate(
-                    "segment",
-                    x = r_object$data[r_object$data$Outliers == "Outlier", ][,
-                      2
-                    ][i],
-                    xend = r_object$data[
-                      r_object$data$Outliers == "Outlier",
-                    ][, 2][i],
-                    y = r_object$data[r_object$data$Outliers == "Outlier", ][,
-                      3
-                    ][i],
-                    yend = r_object$data[
-                      r_object$data$Outliers == "Outlier",
-                    ][, 2][i] *
-                      r_object$coef[1],
-                    linetype = "solid",
-                    colour = "#56B4E9"
-                  )
-              }
+              B <- B +
+                ggplot2::annotate(
+                  "segment",
+                  x = out_dat[, 2],
+                  xend = out_dat[, 2],
+                  y = out_dat[, 3],
+                  yend = out_dat[, 2] * r_object$coef[1],
+                  linetype = "solid",
+                  colour = "#56B4E9"
+                )
             }
           }
         }
@@ -1410,23 +1372,19 @@ plot_radial <- function(r_object, radial_scale, show_outliers, scale_match) {
                     )
                 }
               }
-              for (i in seq_along(r_object$data[, 3])) {
-                Theta <- atan(r_object$data[, 3] / r_object$data[, 2])
-
-                b <- sin(Theta) * R.All
-                a <- cos(Theta) * R.All
-
-                B <- B +
-                  ggplot2::annotate(
-                    "segment",
-                    x = 0,
-                    xend = a[i],
-                    y = 0,
-                    yend = b[i],
-                    linetype = "dotted",
-                    colour = "grey75"
-                  )
-              }
+              Theta <- atan(r_object$data[, 3] / r_object$data[, 2])
+              b <- sin(Theta) * R.All
+              a <- cos(Theta) * R.All
+              B <- B +
+                ggplot2::annotate(
+                  "segment",
+                  x = 0,
+                  xend = a,
+                  y = 0,
+                  yend = b,
+                  linetype = "dotted",
+                  colour = "grey75"
+                )
 
               print("No significant Outliers")
             }
@@ -1565,21 +1523,19 @@ plot_radial <- function(r_object, radial_scale, show_outliers, scale_match) {
               }
 
               #Draw lines showing the ratio estimate for each individual variant
-              for (i in seq_along(r_object$data[, 3])) {
-                Theta <- atan(r_object$data[, 3] / r_object$data[, 2])
-                b <- sin(Theta) * R.All
-                a <- cos(Theta) * R.All
-                B <- B +
-                  ggplot2::annotate(
-                    "segment",
-                    x = 0,
-                    xend = a[i],
-                    y = 0,
-                    yend = b[i],
-                    linetype = "dotted",
-                    colour = "grey75"
-                  )
-              }
+              Theta <- atan(r_object$data[, 3] / r_object$data[, 2])
+              b <- sin(Theta) * R.All
+              a <- cos(Theta) * R.All
+              B <- B +
+                ggplot2::annotate(
+                  "segment",
+                  x = 0,
+                  xend = a,
+                  y = 0,
+                  yend = b,
+                  linetype = "dotted",
+                  colour = "grey75"
+                )
             }
           }
 
@@ -1695,23 +1651,19 @@ plot_radial <- function(r_object, radial_scale, show_outliers, scale_match) {
                     )
                 }
               }
-              for (i in seq_along(r_object$data[, 3])) {
-                Theta <- atan(r_object$data[, 3] / r_object$data[, 2])
-
-                b <- sin(Theta) * R.All
-                a <- cos(Theta) * R.All
-
-                B <- B +
-                  ggplot2::annotate(
-                    "segment",
-                    x = 0,
-                    xend = a[i],
-                    y = 0,
-                    yend = b[i],
-                    linetype = "dotted",
-                    colour = "grey75"
-                  )
-              }
+              Theta <- atan(r_object$data[, 3] / r_object$data[, 2])
+              b <- sin(Theta) * R.All
+              a <- cos(Theta) * R.All
+              B <- B +
+                ggplot2::annotate(
+                  "segment",
+                  x = 0,
+                  xend = a,
+                  y = 0,
+                  yend = b,
+                  linetype = "dotted",
+                  colour = "grey75"
+                )
 
               print("No significant Outliers")
             }
@@ -1849,21 +1801,19 @@ plot_radial <- function(r_object, radial_scale, show_outliers, scale_match) {
               }
 
               #Draw lines showing the ratio estimate for each individual variant
-              for (i in seq_along(r_object$data[, 3])) {
-                Theta <- atan(r_object$data[, 3] / r_object$data[, 2])
-                b <- sin(Theta) * R.All
-                a <- cos(Theta) * R.All
-                B <- B +
-                  ggplot2::annotate(
-                    "segment",
-                    x = 0,
-                    xend = a[i],
-                    y = 0,
-                    yend = b[i],
-                    linetype = "dotted",
-                    colour = "grey75"
-                  )
-              }
+              Theta <- atan(r_object$data[, 3] / r_object$data[, 2])
+              b <- sin(Theta) * R.All
+              a <- cos(Theta) * R.All
+              B <- B +
+                ggplot2::annotate(
+                  "segment",
+                  x = 0,
+                  xend = a,
+                  y = 0,
+                  yend = b,
+                  linetype = "dotted",
+                  colour = "grey75"
+                )
             }
           }
         } #radial scale
@@ -2940,23 +2890,19 @@ plot_radial <- function(r_object, radial_scale, show_outliers, scale_match) {
                   )
               }
             }
-            for (i in seq_along(r_object$data[, 3])) {
-              Theta <- atan(r_object$data[, 3] / r_object$data[, 2])
-
-              b <- sin(Theta) * R.All
-              a <- cos(Theta) * R.All
-
-              B <- B +
-                ggplot2::annotate(
-                  "segment",
-                  x = 0,
-                  xend = a[i],
-                  y = 0,
-                  yend = b[i],
-                  linetype = "dotted",
-                  colour = "grey75"
-                )
-            }
+            Theta <- atan(r_object$data[, 3] / r_object$data[, 2])
+            b <- sin(Theta) * R.All
+            a <- cos(Theta) * R.All
+            B <- B +
+              ggplot2::annotate(
+                "segment",
+                x = 0,
+                xend = a,
+                y = 0,
+                yend = b,
+                linetype = "dotted",
+                colour = "grey75"
+              )
 
             print("No significant Outliers")
           }
@@ -3178,23 +3124,19 @@ plot_radial <- function(r_object, radial_scale, show_outliers, scale_match) {
             }
 
             #Draw individual ratio estimate lines for each outlier and Q distance indicator lines
-            Theta <- rep(0, length(temp.dat[, 3]))
-
-            for (i in seq_along(temp.dat[, 3])) {
-              Theta <- atan(temp.dat[, 3] / temp.dat[, 2])
-              b <- sin(Theta) * R.All
-              a <- cos(Theta) * R.All
-              B <- B +
-                ggplot2::annotate(
-                  "segment",
-                  x = 0,
-                  xend = a[i],
-                  y = 0,
-                  yend = b[i],
-                  linetype = "dotted",
-                  colour = "grey75"
-                )
-            }
+            Theta <- atan(temp.dat[, 3] / temp.dat[, 2])
+            b <- sin(Theta) * R.All
+            a <- cos(Theta) * R.All
+            B <- B +
+              ggplot2::annotate(
+                "segment",
+                x = 0,
+                xend = a,
+                y = 0,
+                yend = b,
+                linetype = "dotted",
+                colour = "grey75"
+              )
           }
         }
 
@@ -3350,23 +3292,19 @@ plot_radial <- function(r_object, radial_scale, show_outliers, scale_match) {
                   )
               }
             }
-            for (i in seq_along(r_object$data[, 3])) {
-              Theta <- atan(r_object$data[, 3] / r_object$data[, 2])
-
-              b <- sin(Theta) * R.All
-              a <- cos(Theta) * R.All
-
-              B <- B +
-                ggplot2::annotate(
-                  "segment",
-                  x = 0,
-                  xend = a[i],
-                  y = 0,
-                  yend = b[i],
-                  linetype = "dotted",
-                  colour = "grey75"
-                )
-            }
+            Theta <- atan(r_object$data[, 3] / r_object$data[, 2])
+            b <- sin(Theta) * R.All
+            a <- cos(Theta) * R.All
+            B <- B +
+              ggplot2::annotate(
+                "segment",
+                x = 0,
+                xend = a,
+                y = 0,
+                yend = b,
+                linetype = "dotted",
+                colour = "grey75"
+              )
 
             print("No significant Outliers")
           }
@@ -3587,23 +3525,19 @@ plot_radial <- function(r_object, radial_scale, show_outliers, scale_match) {
             }
 
             #Draw individual ratio estimate lines for each outlier and Q distance indicator lines
-            Theta <- rep(0, length(temp.dat[, 3]))
-
-            for (i in seq_along(temp.dat[, 3])) {
-              Theta <- atan(temp.dat[, 3] / temp.dat[, 2])
-              b <- sin(Theta) * R.All
-              a <- cos(Theta) * R.All
-              B <- B +
-                ggplot2::annotate(
-                  "segment",
-                  x = 0,
-                  xend = a[i],
-                  y = 0,
-                  yend = b[i],
-                  linetype = "dotted",
-                  colour = "grey75"
-                )
-            }
+            Theta <- atan(temp.dat[, 3] / temp.dat[, 2])
+            b <- sin(Theta) * R.All
+            a <- cos(Theta) * R.All
+            B <- B +
+              ggplot2::annotate(
+                "segment",
+                x = 0,
+                xend = a,
+                y = 0,
+                yend = b,
+                linetype = "dotted",
+                colour = "grey75"
+              )
           }
         }
       }
@@ -4200,23 +4134,19 @@ plot_radial <- function(r_object, radial_scale, show_outliers, scale_match) {
                   )
               }
             }
-            for (i in seq_along(r_object$data[, 3])) {
-              Theta <- atan(r_object$data[, 3] / r_object$data[, 2])
-
-              b <- sin(Theta) * R.All
-              a <- cos(Theta) * R.All
-
-              B <- B +
-                ggplot2::annotate(
-                  "segment",
-                  x = 0,
-                  xend = a[i],
-                  y = 0,
-                  yend = b[i],
-                  linetype = "dotted",
-                  colour = "grey75"
-                )
-            }
+            Theta <- atan(r_object$data[, 3] / r_object$data[, 2])
+            b <- sin(Theta) * R.All
+            a <- cos(Theta) * R.All
+            B <- B +
+              ggplot2::annotate(
+                "segment",
+                x = 0,
+                xend = a,
+                y = 0,
+                yend = b,
+                linetype = "dotted",
+                colour = "grey75"
+              )
 
             print("No significant Outliers")
           }
@@ -4383,23 +4313,19 @@ plot_radial <- function(r_object, radial_scale, show_outliers, scale_match) {
             }
 
             #Draw individual ratio estimate lines for each outlier and Q distance indicator lines
-            Theta <- rep(0, length(r_object$data[, 3]))
-
-            for (i in seq_along(r_object$data[, 3])) {
-              Theta <- atan(r_object$data[, 3] / r_object$data[, 2])
-              b <- sin(Theta) * R.All
-              a <- cos(Theta) * R.All
-              B <- B +
-                ggplot2::annotate(
-                  "segment",
-                  x = 0,
-                  xend = a[i],
-                  y = 0,
-                  yend = b[i],
-                  linetype = "dotted",
-                  colour = "grey75"
-                )
-            }
+            Theta <- atan(r_object$data[, 3] / r_object$data[, 2])
+            b <- sin(Theta) * R.All
+            a <- cos(Theta) * R.All
+            B <- B +
+              ggplot2::annotate(
+                "segment",
+                x = 0,
+                xend = a,
+                y = 0,
+                yend = b,
+                linetype = "dotted",
+                colour = "grey75"
+              )
           }
         }
 
@@ -4555,23 +4481,19 @@ plot_radial <- function(r_object, radial_scale, show_outliers, scale_match) {
                   )
               }
             }
-            for (i in seq_along(r_object$data[, 3])) {
-              Theta <- atan(r_object$data[, 3] / r_object$data[, 2])
-
-              b <- sin(Theta) * R.All
-              a <- cos(Theta) * R.All
-
-              B <- B +
-                ggplot2::annotate(
-                  "segment",
-                  x = 0,
-                  xend = a[i],
-                  y = 0,
-                  yend = b[i],
-                  linetype = "dotted",
-                  colour = "grey75"
-                )
-            }
+            Theta <- atan(r_object$data[, 3] / r_object$data[, 2])
+            b <- sin(Theta) * R.All
+            a <- cos(Theta) * R.All
+            B <- B +
+              ggplot2::annotate(
+                "segment",
+                x = 0,
+                xend = a,
+                y = 0,
+                yend = b,
+                linetype = "dotted",
+                colour = "grey75"
+              )
 
             print("No significant Outliers")
           }
@@ -4737,23 +4659,19 @@ plot_radial <- function(r_object, radial_scale, show_outliers, scale_match) {
             }
 
             #Draw individual ratio estimate lines for each outlier and Q distance indicator lines
-            Theta <- rep(0, length(r_object$data[, 3]))
-
-            for (i in seq_along(r_object$data[, 3])) {
-              Theta <- atan(r_object$data[, 3] / r_object$data[, 2])
-              b <- sin(Theta) * R.All
-              a <- cos(Theta) * R.All
-              B <- B +
-                ggplot2::annotate(
-                  "segment",
-                  x = 0,
-                  xend = a[i],
-                  y = 0,
-                  yend = b[i],
-                  linetype = "dotted",
-                  colour = "grey75"
-                )
-            }
+            Theta <- atan(r_object$data[, 3] / r_object$data[, 2])
+            b <- sin(Theta) * R.All
+            a <- cos(Theta) * R.All
+            B <- B +
+              ggplot2::annotate(
+                "segment",
+                x = 0,
+                xend = a,
+                y = 0,
+                yend = b,
+                linetype = "dotted",
+                colour = "grey75"
+              )
           }
         }
       }
