@@ -147,7 +147,7 @@ ivw_radial <- function(r_input, alpha, weights, tol, summary) {
   IVW.Model <- stats::lm(BetaWj ~ -1 + Wj)
 
   # Save summary of IVW model
-  EstimatesIVW <- summary(stats::lm(IVW.Model))
+  EstimatesIVW <- summary(IVW.Model)
 
   # Define effect estimate using IVW model
   IVW.Slope <- EstimatesIVW$coefficients[1]
@@ -188,7 +188,7 @@ ivw_radial <- function(r_input, alpha, weights, tol, summary) {
     IVW.Model <- stats::lm(BetaWj ~ -1 + Wj)
 
     # Save summary of IVW model
-    EstimatesIVW <- summary(stats::lm(BetaWj ~ -1 + Wj))
+    EstimatesIVW <- summary(IVW.Model)
 
     # Define effect estimate using IVW model
     IVW.Slope <- EstimatesIVW$coefficients[1]
@@ -232,7 +232,7 @@ ivw_radial <- function(r_input, alpha, weights, tol, summary) {
       Wj <- sqrt(W)
       BetaWj <- Ratios * Wj
       new.IVW.Model <- stats::lm(BetaWj ~ -1 + Wj)
-      new.EstimatesIVW <- summary(stats::lm(BetaWj ~ -1 + Wj))
+      new.EstimatesIVW <- summary(new.IVW.Model)
       new.IVW.Slope <- new.EstimatesIVW$coefficients[1]
       new.IVW.SE <- new.EstimatesIVW$coefficients[2]
       new.IVW_CI <- stats::confint(new.IVW.Model)
@@ -253,9 +253,9 @@ ivw_radial <- function(r_input, alpha, weights, tol, summary) {
       # Update confidence interval for effect estimate
       Bhat1.CI <- new.IVW_CI
       # Update t-value for effect estimate
-      Bhat1.t <- summary(new.IVW.Model)$coefficients[1, 3]
+      Bhat1.t <- new.EstimatesIVW$coefficients[1, 3]
       # Update p-value for effect estimate
-      Bhat1.p <- summary(new.IVW.Model)$coefficients[1, 4]
+      Bhat1.p <- new.EstimatesIVW$coefficients[1, 4]
       # Update count number for total iterations
       count <- count + 1
     }
@@ -316,13 +316,17 @@ ivw_radial <- function(r_input, alpha, weights, tol, summary) {
   BootVar = function(sims = 1000) {
     B = NULL
     pp = NULL
+    bxg_all = r_input[, 2]
+    byg_all = r_input[, 3]
+    seX_all = r_input[, 4]
+    seY_all = r_input[, 5]
+    L = length(bxg_all)
     for (hh in 1:sims) {
-      L = length(r_input[, 2])
       choice = sample(seq(1, L), L, replace = TRUE)
-      bxg = r_input[, 2][choice]
-      seX = r_input[, 4][choice]
-      byg = r_input[, 3][choice]
-      seY = r_input[, 5][choice]
+      bxg = bxg_all[choice]
+      seX = seX_all[choice]
+      byg = byg_all[choice]
+      seY = seY_all[choice]
       Ratios = byg / bxg
 
       W1 = 1 / (seY^2 / bxg^2)
@@ -459,27 +463,15 @@ ivw_radial <- function(r_input, alpha, weights, tol, summary) {
   RE_EXACT <- data.frame(RE_EXACT)
   names(RE_EXACT) <- c("Estimate", "Std.Error", "t value", "Pr(>|t|)")
 
-  # Define a placeholder vector of 0 values for chi square tests
-  Qj_Chi <- 0
-
   # Perform chi square tests for each Q contribution Qj
-  for (i in seq_along(Qj)) {
-    Qj_Chi[i] <- stats::pchisq(Qj[i], 1, lower.tail = FALSE)
-  }
+  Qj_Chi <- stats::pchisq(Qj, 1, lower.tail = FALSE)
 
   # Create data frame with SNP IDs and outlier information
   r_input$Qj <- Qj
   r_input$Qj_Chi <- Qj_Chi
 
-  # Define a placeholder vector of 0 values for outlier status variable
-  Out_Indicator <- rep(0, length(r_input[, 2]))
-
-  # Include value of 1 indicating positive outlier status for given sig.threshold
-  for (i in seq_along(r_input[, 2])) {
-    if (Qj_Chi[i] < alpha) {
-      Out_Indicator[i] <- 1
-    }
-  }
+  # Set outlier indicator (1 = outlier) for variants below significance threshold
+  Out_Indicator <- as.integer(Qj_Chi < alpha)
 
   # Include the outlier status variable in the data frame as a factor
   r_input$Outliers <- factor(Out_Indicator)
