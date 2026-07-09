@@ -28,7 +28,7 @@ plot_radial(r_object, radial_scale, show_outliers, scale_match)
 
 - show_outliers:
 
-  Indicates whether display only the set of variants identified as
+  Indicates whether to display only the set of variants identified as
   outliers (`TRUE`) or the complete set of variants (`FALSE`). Note that
   when (`show_outliers=TRUE`), non-outlying variants further from the
   origin than the furthest outlier will cause an error message that one
@@ -39,7 +39,7 @@ plot_radial(r_object, radial_scale, show_outliers, scale_match)
 
 - scale_match:
 
-  Indicates whether x and y axes should have the same range(`TRUE`), or
+  Indicates whether x and y axes should have the same range (`TRUE`), or
   different ranges (`FALSE`) This improves the interpretation of the
   radial scale, and is set to `FALSE` when the radial scale is omitted
   from the plot.
@@ -74,7 +74,7 @@ ivw.object <- ivw_radial(ldl.fdat, 0.05, 1, 0.0001, TRUE)
 #> Effect (1st) 0.4874900 0.05830409  8.361163 6.210273e-17
 #> Iterative    0.4873205 0.05827885  8.361874 6.172955e-17
 #> Exact (FE)   0.4958973 0.03804168 13.035630 7.673061e-39
-#> Exact (RE)   0.4910400 0.05326169  9.219385 2.930989e-14
+#> Exact (RE)   0.4910400 0.05326164  9.219394 2.930989e-14
 #> 
 #> 
 #> Residual standard error: 1.544 on 81 degrees of freedom
